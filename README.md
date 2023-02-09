@@ -7,7 +7,11 @@ This is for our team python project
 print('hello world')
 ```
 
-Team TheCoolest!
-* Timothy Hickey tjhickey724
-* Rose Nolan
+Team TwentyNine!
+* Harry Yu HandsomeHarry 
+* Aaron Tang aarontang0904
+* Jake Liu JakeLiu-web
+* Denise Zhong
+* Nana Li
+
 
