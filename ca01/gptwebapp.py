@@ -29,6 +29,20 @@ gptAPI = GPT(os.environ.get('APIKEY'))
 app.secret_key = b'_5#y2L"F4Q789789uioujkkljkl...8z\n\xec]/'
 
 @app.route('/')
+def main():
+    ''' display a link to the general query page '''
+    print('processing / route')
+    return f'''
+        <h1>Group 29 GPT demo</h1>
+        <a href="{url_for('index')}">Index page</a>
+        <br>
+        <a href="{url_for('about')}">About</a>
+        <br>
+        <a href="{url_for('team')}">Team</a>
+    '''
+
+
+@app.route('/index')
 def index():
     ''' display a link to the general query page '''
     print('processing / route')
@@ -38,11 +52,7 @@ def index():
         <br>
         <a href="{url_for('convertCode')}">Convert code</a>
         <br>
-        <a href="{url_for('about')}">About</a>
-        <br>
-        <a href="{url_for('team')}">Team</a>
-        <br>
-        <a href="{url_for('index')}">Index page</a>
+        <!--enter link to other pages here-->
     '''
 
 
@@ -84,10 +94,10 @@ def fieldAnalysis():
         <h1>Field analysis output</h1>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
-        <pre style="border:thin solid black">{answer}</pre>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
         <a href={url_for('fieldAnalysis')}> make another query</a>
         <br>
-        <a href="{url_for('index')}">Index page</a>
+        <a href="/">Main page</a>
         '''
     else:
         return '''
@@ -105,7 +115,7 @@ def about():
     return f'''
         <h1>About</h1>
         <p>This is a GPT demo.</p>
-        <a href="{url_for('index')}">Index page</a>
+        <a href="/">Main page</a>
     '''
 
 @app.route('/team')
@@ -114,12 +124,13 @@ def team():
     return f'''
         <h1>Team</h1>
         <p>Group 29</p>
-        <li>Harry Yu: Team leader, wrote fieldAnalysis function, built website framework</li>
-        <li>Aaron Tang: Write convert Code function</li>
+        <li>Harry Yu: Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</li>
+        <li>Aaron Tang: Wrote <strong>convertCodetoPython</strong> function, built website framework</li>
         <li>Jake Liu</li>
         <li>Denise Zhong</li>
         <li>Nana Li</li>
-        <a href="{url_for('index')}">Index page</a>
+        <br>
+        <a href="/">Main page</a>
     '''
 
 
