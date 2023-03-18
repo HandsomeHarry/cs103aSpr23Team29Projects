@@ -33,8 +33,12 @@ def index():
     ''' display a link to the general query page '''
     print('processing / route')
     return f'''
-        <h1>GPT Demo</h1>
+        <h1>Group 29 GPT demo</h1>
         <a href="{url_for('gptdemo')}">Ask questions to GPT</a>
+        <a href="{url_for('fieldAnalysis')}">Analyse field</a>
+        <a href="{url_for('about')}">About</a>
+        <a href="{url_for('team')}">Team</a>
+        <a href="{url_for('index')}">Index page</a>
     '''
 
 
@@ -58,13 +62,60 @@ def gptdemo():
         '''
     else:
         return '''
-        <h1>GPT Demo App</h1>
-        Enter your query below
+        <h1>Generate analysis of specific field</h1>
+        Enter the field you want to analyse:
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
         </form>
         '''
+    
+@app.route('/fieldAnalysis', methods=['GET', 'POST'])
+def fieldAnalysis():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.fieldAnalysis(prompt)
+        return f'''
+        <h1>GPT Demo</h1>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        Here is the answer in text mode:
+        <div style="border:thin solid black">{answer}</div>
+        Here is the answer in "pre" mode:
+        <pre style="border:thin solid black">{answer}</pre>
+        <a href={url_for('gptdemo')}> make another query</a>
+        '''
+    else:
+        return '''
+        <h1>Generate analysis of specific field</h1>
+        Enter the field you want to analyse:
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        '''
+    
+@app.route('/about')
+def about():
+    print('processing / route')
+    return f'''
+        <h1>About</h1>
+        <p>This is a GPT demo</p>
+        <a href="{url_for('index')}">Index page</a>
+    '''
+
+@app.route('/team')
+def team():
+    print('processing / route')
+    return f'''
+        <h1>Team</h1>
+        <p>Group 29</p>
+        <a href="{url_for('index')}">Index page</a>
+    '''
+
 
 if __name__=='__main__':
     # run the code on port 5001, MacOS uses port 5000 for its own service :(
