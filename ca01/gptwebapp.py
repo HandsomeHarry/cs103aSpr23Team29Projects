@@ -36,6 +36,7 @@ def main():
     print('processing / route')
     return f'''
         <h1>Group 29 GPT demo</h1>
+        <hr>
         <h3><a href="{url_for('index')}">Index page</a></h3>
         <h3><a href="{url_for('about')}">About</a></h3>
         <h3><a href="{url_for('team')}">Team</a></h3>
@@ -49,10 +50,9 @@ def index():
     print('processing / route')
     return f'''
         <h1>Group 29 GPT demo</h1>
-        <a href="{url_for('fieldAnalysis')}">Analyse field</a>
-        <br>
-        <a href="{url_for('convertCode')}">Convert code</a>
-        <br>
+        <hr>
+        <h3><a href="{url_for('fieldAnalysis')}">Analyse field</a></h3>
+        <h3><a href="{url_for('convertCode')}">Convert code</a></h3>
         <!--enter link to other pages here-->
         <hr>
         <form action='/'>
@@ -72,6 +72,7 @@ def convertCode():
         answer = gptAPI.convertCodetoPython(prompt)
         return f'''
         <h1>Convert Code to Python</h1>
+        <hr>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         Here is the answer in "pre" mode:
@@ -87,6 +88,7 @@ def convertCode():
     else:
         return '''
         <h1>Convert the code into Python</h1>
+        <hr>
         Enter the code you want to convert:
         <form method="post">
             <textarea name="prompt"></textarea>
@@ -108,6 +110,7 @@ def fieldAnalysis():
         answer = gptAPI.fieldAnalysis(prompt)
         return f'''
         <h1>Field analysis output</h1>
+        <hr>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
@@ -122,6 +125,7 @@ def fieldAnalysis():
     else:
         return '''
         <h1>Generate analysis of specific field</h1>
+        <hr>
         Enter the industry you want to analyze:
         <form method="post">
             <textarea name="prompt"></textarea>
@@ -140,6 +144,7 @@ def about():
     print('processing / route')
     return f'''
         <h1>About</h1>
+        <hr>
         <p>This is a GPT demo made by group 29, containing:</p>
         <li><a href='/index/convertCode'>Convert code to Python</a> by <strong>Aaron Tang</strong></li>
         <li><a href='/index/fieldAnalysis'>Field analysis</a> by <strong>Harry Yu</strong></li>
@@ -156,7 +161,8 @@ def team():
     print('processing / route')
     return f'''
         <h1>Team</h1>
-        <p>Group 29</p>
+        <hr>
+        <h3>Group 29</h3>
         <li><a href='/team/harry'>Harry Yu</a></li>
         <li><a href='/team/aaron'>Aaron Tang</a></li>
         <li>Jake Liu</li>
@@ -176,6 +182,7 @@ def harry():
     print('processing / route')
     return f'''
         <h1>Harry Yu</h1>
+        <hr>
         <text>Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</text>
         <br>
         <hr>
@@ -189,6 +196,7 @@ def aaron():
     print('processing / route')
     return f'''
         <h1>Aaron Tang</h1>
+        <hr>
         <text>Wrote <strong>convertCodetoPython</strong> function, built website framework</text>
         <br>
         <hr>
