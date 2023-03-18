@@ -36,11 +36,9 @@ def main():
     print('processing / route')
     return f'''
         <h1>Group 29 GPT demo</h1>
-        <a href="{url_for('index')}">Index page</a>
-        <br>
-        <a href="{url_for('about')}">About</a>
-        <br>
-        <a href="{url_for('team')}">Team</a>
+        <h3><a href="{url_for('index')}">Index page</a></h3>
+        <h3><a href="{url_for('about')}">About</a></h3>
+        <h3><a href="{url_for('team')}">Team</a></h3>
     '''
 
 # index page for all the functions
@@ -56,6 +54,10 @@ def index():
         <a href="{url_for('convertCode')}">Convert code</a>
         <br>
         <!--enter link to other pages here-->
+        <hr>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
     '''
 
 ### here starts the index page elements ###
@@ -75,6 +77,14 @@ def convertCode():
         Here is the answer in "pre" mode:
         <pre style="border:thin solid black">{answer}</pre>
         <a href='/index/convertCode'> make another query</a>
+        <br>
+        <hr>
+        <form action='/index'>
+            <button type="submit">Back</button>
+        </form>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
         '''
     else:
         return '''
@@ -83,6 +93,10 @@ def convertCode():
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/index'>
+            <button type="submit">Back</button>
         </form>
         '''
 
@@ -101,7 +115,13 @@ def fieldAnalysis():
         <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
         <a href='/index/fieldAnalysis'> make another query</a>
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
+        <form action='/index'>
+            <button type="submit">Back</button>
+        </form>
         '''
     else:
         return '''
@@ -110,6 +130,10 @@ def fieldAnalysis():
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/index'>
+            <button type="submit">Back</button>
         </form>
         '''
 
@@ -125,7 +149,10 @@ def about():
         <li><a href='/index/fieldAnalysis'>Field analysis</a> by Harry Yu</li>
         <!--enter links to other pages here-->
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
     '''
 
 @app.route('/team')
@@ -135,12 +162,15 @@ def team():
         <h1>Team</h1>
         <p>Group 29</p>
         <li><a href='/team/harry'>Harry Yu</a></li>
-        <li>Aaron Tang: Wrote <strong>convertCodetoPython</strong> function, built website framework</li>
+        <li><a href='/team/aaron'>Aaron Tang</a></li>
         <li>Jake Liu</li>
         <li>Denise Zhong</li>
         <li>Nana Li</li>
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
     '''
 
 ### here starts the team page elements ###
@@ -152,8 +182,10 @@ def harry():
         <h1>Harry Yu</h1>
         <text>Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</text>
         <br>
-        <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
     '''
 
 @app.route('/team/aaron')
@@ -163,7 +195,10 @@ def aaron():
         <h1>Aaron Tang</h1>
         <text>Wrote <strong>convertCodetoPython</strong> function, built website framework</text>
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button type="submit">Home</button>
+        </form>
     '''
 
 # run the app
