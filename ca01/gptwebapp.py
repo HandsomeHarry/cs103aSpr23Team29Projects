@@ -34,8 +34,6 @@ def index():
     print('processing / route')
     return f'''
         <h1>Group 29 GPT demo</h1>
-        <a href="{url_for('gptdemo')}">Ask questions to GPT</a>
-        <br>
         <a href="{url_for('fieldAnalysis')}">Analyse field</a>
         <br>
         <a href="{url_for('convertCode')}">Convert code</a>
@@ -47,34 +45,6 @@ def index():
         <a href="{url_for('index')}">Index page</a>
     '''
 
-
-@app.route('/gptdemo', methods=['GET', 'POST'])
-def gptdemo():
-    ''' handle a get request by sending a form 
-        and a post request by returning the GPT response
-    '''
-    if request.method == 'POST':
-        prompt = request.form['prompt']
-        answer = gptAPI.getResponse(prompt)
-        return f'''
-        <h1>GPT Demo</h1>
-        <pre style="bgcolor:yellow">{prompt}</pre>
-        <hr>
-        Here is the answer in text mode:
-        <div style="border:thin solid black">{answer}</div>
-        Here is the answer in "pre" mode:
-        <pre style="border:thin solid black">{answer}</pre>
-        <a href={url_for('gptdemo')}> make another query</a>
-        '''
-    else:
-        return '''
-        <h1>Generate analysis of specific field</h1>
-        Enter the field you want to analyse:
-        <form method="post">
-            <textarea name="prompt"></textarea>
-            <p><input type=submit value="get response">
-        </form>
-        '''
 
 @app.route('/convertCode', methods=['GET', 'POST'])
 def convertCode():
@@ -111,14 +81,13 @@ def fieldAnalysis():
         prompt = request.form['prompt']
         answer = gptAPI.fieldAnalysis(prompt)
         return f'''
-        <h1>GPT Demo</h1>
+        <h1>Field analysis output</h1>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
-        Here is the answer in text mode:
-        <div style="border:thin solid black">{answer}</div>
-        Here is the answer in "pre" mode:
         <pre style="border:thin solid black">{answer}</pre>
-        <a href={url_for('gptdemo')}> make another query</a>
+        <a href={url_for('fieldAnalysis')}> make another query</a>
+        <br>
+        <a href="{url_for('index')}">Index page</a>
         '''
     else:
         return '''
@@ -145,7 +114,7 @@ def team():
     return f'''
         <h1>Team</h1>
         <p>Group 29</p>
-        <li>Harry Yu</li>
+        <li>Harry Yu: Team leader, wrote fieldAnalysis function, built website framework</li>
         <li>Aaron Tang: Write convert Code</li>
         <li>Jake Liu</li>
         <li>Denise Zhong</li>
