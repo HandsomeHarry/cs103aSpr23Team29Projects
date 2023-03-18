@@ -35,10 +35,15 @@ def index():
     return f'''
         <h1>Group 29 GPT demo</h1>
         <a href="{url_for('gptdemo')}">Ask questions to GPT</a>
+        <br>
         <a href="{url_for('fieldAnalysis')}">Analyse field</a>
+        <br>
         <a href="{url_for('convertCode')}">Convert code</a>
+        <br>
         <a href="{url_for('about')}">About</a>
+        <br>
         <a href="{url_for('team')}">Team</a>
+        <br>
         <a href="{url_for('index')}">Index page</a>
     '''
 
