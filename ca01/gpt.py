@@ -44,10 +44,13 @@ class GPT():
 
         response = completion.choices[0].text
         return response
+    
+    def fieldAnalysis(self,prompt):
+        text = "Analyse the following field for Historical trends and data, Market size and competition, Technological advancements, Regulatory and legal framework, Consumer behavior and preferences, Demographic and economic trends. \n"
+        response = self.getResponse(text + prompt)
+        return response
 
 if __name__=='__main__':
-    '''
-    '''
     import os
     g = GPT(os.environ.get("APIKEY"))
-    print(g.getResponse("what does openai's GPT stand for?"))
+    print(g.getResponse("what does openai's GPT stand for?"))    g = GPT(os.environ.get('CHAT_API_KEY'))
