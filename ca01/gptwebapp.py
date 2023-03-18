@@ -145,6 +145,11 @@ def team():
     return f'''
         <h1>Team</h1>
         <p>Group 29</p>
+        <li>Harry Yu</li>
+        <li>Aaron Tang: Write convert Code</li>
+        <li>Jake Liu</li>
+        <li>Denise Zhong</li>
+        <li>Nana Li</li>
         <a href="{url_for('index')}">Index page</a>
     '''
 
