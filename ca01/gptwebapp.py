@@ -36,6 +36,7 @@ def index():
         <h1>Group 29 GPT demo</h1>
         <a href="{url_for('gptdemo')}">Ask questions to GPT</a>
         <a href="{url_for('fieldAnalysis')}">Analyse field</a>
+        <a href="{url_for('convertCode')}">Convert code</a>
         <a href="{url_for('about')}">About</a>
         <a href="{url_for('team')}">Team</a>
         <a href="{url_for('index')}">Index page</a>
