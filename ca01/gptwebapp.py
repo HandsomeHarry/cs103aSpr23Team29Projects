@@ -56,7 +56,7 @@ def index():
         <!--enter link to other pages here-->
         <hr>
         <form action='/'>
-            <button type="submit">Home</button>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
     '''
 
@@ -69,21 +69,19 @@ def convertCode():
     '''
     if request.method == 'POST':
         prompt = request.form['prompt']
-        answer = gptAPI.getResponse(prompt)
+        answer = gptAPI.convertCodetoPython(prompt)
         return f'''
         <h1>Convert Code to Python</h1>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         Here is the answer in "pre" mode:
         <pre style="border:thin solid black">{answer}</pre>
-        <a href='/index/convertCode'> make another query</a>
-        <br>
-        <hr>
-        <form action='/index'>
-            <button type="submit">Back</button>
+         <form action='/index/convertCode'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
         </form>
+        <hr>
         <form action='/'>
-            <button type="submit">Home</button>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
     else:
@@ -95,8 +93,8 @@ def convertCode():
             <p><input type=submit value="get response">
         </form>
         <hr>
-        <form action='/index'>
-            <button type="submit">Back</button>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
 
@@ -113,14 +111,12 @@ def fieldAnalysis():
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
-        <a href='/index/fieldAnalysis'> make another query</a>
-        <br>
+        <form action='/index/fieldAnalysis'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
         <hr>
         <form action='/'>
-            <button type="submit">Home</button>
-        </form>
-        <form action='/index'>
-            <button type="submit">Back</button>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
     else:
@@ -132,8 +128,8 @@ def fieldAnalysis():
             <p><input type=submit value="get response">
         </form>
         <hr>
-        <form action='/index'>
-            <button type="submit">Back</button>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
 
@@ -145,13 +141,13 @@ def about():
     return f'''
         <h1>About</h1>
         <p>This is a GPT demo made by group 29, containing:</p>
-        <li><a href='/index/convertCode'>Convert code to Python</a> by Aaron Tang</li>
-        <li><a href='/index/fieldAnalysis'>Field analysis</a> by Harry Yu</li>
+        <li><a href='/index/convertCode'>Convert code to Python</a> by <strong>Aaron Tang</strong></li>
+        <li><a href='/index/fieldAnalysis'>Field analysis</a> by <strong>Harry Yu</strong></li>
         <!--enter links to other pages here-->
         <br>
         <hr>
         <form action='/'>
-            <button type="submit">Home</button>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
     '''
 
@@ -169,7 +165,7 @@ def team():
         <br>
         <hr>
         <form action='/'>
-            <button type="submit">Home</button>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
     '''
 
@@ -183,8 +179,8 @@ def harry():
         <text>Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</text>
         <br>
         <hr>
-        <form action='/'>
-            <button type="submit">Home</button>
+        <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
         </form>
     '''
 
@@ -196,8 +192,8 @@ def aaron():
         <text>Wrote <strong>convertCodetoPython</strong> function, built website framework</text>
         <br>
         <hr>
-        <form action='/'>
-            <button type="submit">Home</button>
+        <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
         </form>
     '''
 
