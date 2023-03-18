@@ -26,7 +26,7 @@ class GPT():
         ''' store the apikey in an instance variable '''
         self.apikey=apikey
         # Set up the OpenAI API client
-        openai.api_key = apikey #os.environ.get('APIKEY')
+        openai.api_key = apikey
 
         # Set up the model and prompt
         self.model_engine = "text-davinci-003"
@@ -60,3 +60,7 @@ if __name__=='__main__':
     g = GPT(os.environ.get("APIKEY"))
     print(g.getResponse("what does openai's GPT stand for?"))    
     g = GPT(os.environ.get('CHAT_API_KEY'))
+    import os   
+    g = GPT(os.environ.get('APIKEY'))
+    print(g.getResponse("what does openai's GPT stand for?"))
+    print(g.fieldAnalysis("Renewable energy"))
