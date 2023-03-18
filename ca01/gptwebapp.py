@@ -69,7 +69,33 @@ def gptdemo():
             <p><input type=submit value="get response">
         </form>
         '''
-    
+
+@app.route('/convertCode', methods=['GET', 'POST'])
+def convertCode():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.getResponse(prompt)
+        return f'''
+        <h1>GPT Demo</h1>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        Here is the answer in "pre" mode:
+        <pre style="border:thin solid black">{answer}</pre>
+        <a href={url_for('gptdemo')}> make another query</a>
+        '''
+    else:
+        return '''
+        <h1>Generate analysis of specific field</h1>
+        Enter the field you want to analyse:
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        '''
+
 @app.route('/fieldAnalysis', methods=['GET', 'POST'])
 def fieldAnalysis():
     ''' handle a get request by sending a form 
