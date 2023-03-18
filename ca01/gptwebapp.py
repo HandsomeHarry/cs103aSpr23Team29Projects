@@ -71,23 +71,22 @@ def convertCode():
         prompt = request.form['prompt']
         answer = gptAPI.convertCodetoPython(prompt)
         return f'''
-        <h1>Convert Code to Python</h1>
+        <h1>Convert the given code into Python</h1>
         <hr>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
-        Here is the answer in "pre" mode:
-        <pre style="border:thin solid black">{answer}</pre>
-         <form action='/index/convertCode'>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
+        <form action='/index/convertCode'>
             <button style ="background-color: F7433E" type="submit">Make another query</button>
         </form>
-        <hr>
         <form action='/'>
             <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
     else:
         return '''
-        <h1>Convert the code into Python</h1>
+        <h1>Convert the code to python</h1>
         <hr>
         Enter the code you want to convert:
         <form method="post">
@@ -114,10 +113,10 @@ def fieldAnalysis():
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
         <form action='/index/fieldAnalysis'>
             <button style ="background-color: F7433E" type="submit">Make another query</button>
         </form>
-        <hr>
         <form action='/'>
             <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
