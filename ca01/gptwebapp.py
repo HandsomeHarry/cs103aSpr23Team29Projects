@@ -55,7 +55,7 @@ def convertCode():
         prompt = request.form['prompt']
         answer = gptAPI.getResponse(prompt)
         return f'''
-        <h1>GPT Demo</h1>
+        <h1>Convert Code to Python</h1>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         Here is the answer in "pre" mode:
@@ -64,8 +64,8 @@ def convertCode():
         '''
     else:
         return '''
-        <h1>Generate analysis of specific field</h1>
-        Enter the field you want to analyse:
+        <h1>Convert the code into Python</h1>
+        Enter the code you want to convert:
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
@@ -104,7 +104,7 @@ def about():
     print('processing / route')
     return f'''
         <h1>About</h1>
-        <p>This is a GPT demo</p>
+        <p>This is a GPT demo.</p>
         <a href="{url_for('index')}">Index page</a>
     '''
 
@@ -115,7 +115,7 @@ def team():
         <h1>Team</h1>
         <p>Group 29</p>
         <li>Harry Yu: Team leader, wrote fieldAnalysis function, built website framework</li>
-        <li>Aaron Tang: Write convert Code</li>
+        <li>Aaron Tang: Write convert Code function</li>
         <li>Jake Liu</li>
         <li>Denise Zhong</li>
         <li>Nana Li</li>
