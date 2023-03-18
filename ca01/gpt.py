@@ -50,7 +50,13 @@ class GPT():
         response = self.getResponse(text + prompt)
         return response
 
+    def convertCodetoPython(self, prompt):
+        text = "Convert the following code to Python: \n"
+        response = self.getResponse(text + prompt)
+        return response
+    
 if __name__=='__main__':
     import os
     g = GPT(os.environ.get("APIKEY"))
-    print(g.getResponse("what does openai's GPT stand for?"))    g = GPT(os.environ.get('CHAT_API_KEY'))
+    print(g.getResponse("what does openai's GPT stand for?"))    
+    g = GPT(os.environ.get('CHAT_API_KEY'))
