@@ -28,6 +28,8 @@ gptAPI = GPT(os.environ.get('APIKEY'))
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q789789uioujkkljkl...8z\n\xec]/'
 
+# main page
+
 @app.route('/')
 def main():
     ''' display a link to the general query page '''
@@ -41,6 +43,7 @@ def main():
         <a href="{url_for('team')}">Team</a>
     '''
 
+# index page for all the functions
 
 @app.route('/index')
 def index():
@@ -55,8 +58,9 @@ def index():
         <!--enter link to other pages here-->
     '''
 
+### here starts the index page elements ###
 
-@app.route('/convertCode', methods=['GET', 'POST'])
+@app.route('/index/convertCode', methods=['GET', 'POST'])
 def convertCode():
     ''' handle a get request by sending a form 
         and a post request by returning the GPT response
@@ -70,7 +74,7 @@ def convertCode():
         <hr>
         Here is the answer in "pre" mode:
         <pre style="border:thin solid black">{answer}</pre>
-        <a href={url_for('gptdemo')}> make another query</a>
+        <a href='/index/convertCode'> make another query</a>
         '''
     else:
         return '''
@@ -82,7 +86,7 @@ def convertCode():
         </form>
         '''
 
-@app.route('/fieldAnalysis', methods=['GET', 'POST'])
+@app.route('/index/fieldAnalysis', methods=['GET', 'POST'])
 def fieldAnalysis():
     ''' handle a get request by sending a form 
         and a post request by returning the GPT response
@@ -95,26 +99,32 @@ def fieldAnalysis():
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
-        <a href={url_for('fieldAnalysis')}> make another query</a>
+        <a href='/index/fieldAnalysis'> make another query</a>
         <br>
         <a href="/">Main page</a>
         '''
     else:
         return '''
         <h1>Generate analysis of specific field</h1>
-        Enter the field you want to analyse:
+        Enter the industry you want to analyze:
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
         </form>
         '''
-    
+
+### here starts the main page elements ###
+
 @app.route('/about')
 def about():
     print('processing / route')
     return f'''
         <h1>About</h1>
-        <p>This is a GPT demo.</p>
+        <p>This is a GPT demo made by group 29, containing:</p>
+        <li><a href='/index/convertCode'>Convert code to Python</a> by Aaron Tang</li>
+        <li><a href='/index/fieldAnalysis'>Field analysis</a> by Harry Yu</li>
+        <!--enter links to other pages here-->
+        <br>
         <a href="/">Main page</a>
     '''
 
@@ -124,7 +134,7 @@ def team():
     return f'''
         <h1>Team</h1>
         <p>Group 29</p>
-        <li>Harry Yu: Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</li>
+        <li><a href='/team/harry'>Harry Yu</a></li>
         <li>Aaron Tang: Wrote <strong>convertCodetoPython</strong> function, built website framework</li>
         <li>Jake Liu</li>
         <li>Denise Zhong</li>
@@ -133,6 +143,30 @@ def team():
         <a href="/">Main page</a>
     '''
 
+### here starts the team page elements ###
+
+@app.route('/team/harry')
+def harry():
+    print('processing / route')
+    return f'''
+        <h1>Harry Yu</h1>
+        <text>Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</text>
+        <br>
+        <br>
+        <a href="/">Main page</a>
+    '''
+
+@app.route('/team/aaron')
+def aaron():
+    print('processing / route')
+    return f'''
+        <h1>Aaron Tang</h1>
+        <text>Wrote <strong>convertCodetoPython</strong> function, built website framework</text>
+        <br>
+        <a href="/">Main page</a>
+    '''
+
+# run the app
 
 if __name__=='__main__':
     # run the code on port 5001, MacOS uses port 5000 for its own service :(
