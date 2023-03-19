@@ -55,6 +55,11 @@ class GPT():
         response = self.getResponse(text + prompt)
         return response
     
+    def getTownPopulation(self,prompt):
+        text = " Enter a town, state, year and get the population of that town \n"
+        response = self.getResponse(text + prompt)
+        return response
+    
 if __name__=='__main__':
     import os
     g = GPT(os.environ.get("APIKEY"))

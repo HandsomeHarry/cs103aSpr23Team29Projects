@@ -53,6 +53,7 @@ def index():
         <hr>
         <h3><a href="{url_for('fieldAnalysis')}">Analyse field</a></h3>
         <h3><a href="{url_for('convertCode')}">Convert code</a></h3>
+        <h3><a href="{url_for('getTownPopulation')}">Town Population</a></h3>
         <!--enter link to other pages here-->
         <hr>
         <form action='/'>
@@ -135,6 +136,43 @@ def fieldAnalysis():
             <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
+    
+@app.route('/index/getTownPopulation', methods=['GET', 'POST'])
+def getTownPopulation():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.getTownPopulation(prompt)
+        return f'''
+        <h1>Get the Population of a Given Town</h1>
+        <hr>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
+        <form action='/index/getTownPopulation'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
+    else:
+        return '''
+        <h1>Give the Town Population </h1>
+        <hr>
+        Enter the town, state, and country you want the population of:
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
 
 ### here starts the main page elements ###
 
@@ -147,6 +185,7 @@ def about():
         <p>This is a GPT demo made by group 29, containing:</p>
         <li><a href='/index/convertCode'>Convert code to Python</a> by <strong>Aaron Tang</strong></li>
         <li><a href='/index/fieldAnalysis'>Field analysis</a> by <strong>Harry Yu</strong></li>
+        <li><a href='/index/getTownPopulation'>Give the Town Population</a> by <strong>Denise Zhong</strong></li>
         <!--enter links to other pages here-->
         <br>
         <hr>
@@ -165,7 +204,7 @@ def team():
         <li><a href='/team/harry'>Harry Yu</a></li>
         <li><a href='/team/aaron'>Aaron Tang</a></li>
         <li>Jake Liu</li>
-        <li>Denise Zhong</li>
+        <li><a href='/team/denise'>Denise Zhong</a></li>
         <li>Nana Li</li>
         <br>
         <hr>
@@ -197,6 +236,23 @@ def aaron():
         <h1>Aaron Tang</h1>
         <hr>
         <text>Wrote <strong>convertCodetoPython</strong> function, built website framework</text>
+        <br>
+        <hr>
+        <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
+        </form>
+    '''
+
+@app.route('/team/denise')
+def denise():
+    print('processing / route')
+    return f'''
+        <h1>Denise Zhong</h1>
+        <hr>
+        <h2>Brandeis Class of 2023</h2>
+        <h3>Bachelor of Science Candidate in Biology</h3>
+        <h3>Minor in Chemistry and Computer Science</h3>
+        <text>Wrote <strong>getTownPopulation</strong> function, added to website</text>
         <br>
         <hr>
         <form action='/team'>
