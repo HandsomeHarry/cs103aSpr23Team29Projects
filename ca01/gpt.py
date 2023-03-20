@@ -60,6 +60,11 @@ class GPT():
         response = self.getResponse(text + prompt)
         return response
     
+    def getCountryEcon(self, prompt):
+        text = " Enter a country to get the GDP, GSP, Employment rate and labor force participation rate, per capita income, consumer spending and business climate ranking of the country. \n "
+        response = self.getResponse(text + prompt)
+        return response
+    
 if __name__=='__main__':
     import os
     g = GPT(os.environ.get("APIKEY"))
