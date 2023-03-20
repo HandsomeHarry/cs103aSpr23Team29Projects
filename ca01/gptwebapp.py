@@ -54,6 +54,7 @@ def index():
         <h3><a href="{url_for('fieldAnalysis')}">Analyse field</a></h3>
         <h3><a href="{url_for('convertCode')}">Convert code</a></h3>
         <h3><a href="{url_for('getTownPopulation')}">Town Population</a></h3>
+        <h3><a href="{url_for('getCountryEcon')}">Country Economic</a></h3>
         <!--enter link to other pages here-->
         <hr>
         <form action='/'>
@@ -174,6 +175,43 @@ def getTownPopulation():
         </form>
         '''
 
+@app.route('/index/getCountryEcon', methods=['GET','POST'])
+def getCountryEcon():
+    '''handle a get request by sending a form
+       and a post requestby returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.getCountryEcon(prompt)
+        return f'''
+        <h1>Get the economic information of a country</h1>
+        <hr>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
+        <form action='/index/getCountryEcon'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
+    else:
+        return '''
+        <h1>List the economic information of a country</h1>
+        <hr>
+        Enter the name of the country you want to know about:
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/'>
+            <button style = "background-color: 33B2FF" type="submit">Home</button>
+        </form)
+        '''
+
 ### here starts the main page elements ###
 
 @app.route('/about')
@@ -186,6 +224,7 @@ def about():
         <li><a href='/index/convertCode'>Convert code to Python</a> by <strong>Aaron Tang</strong></li>
         <li><a href='/index/fieldAnalysis'>Field analysis</a> by <strong>Harry Yu</strong></li>
         <li><a href='/index/getTownPopulation'>Give the Town Population</a> by <strong>Denise Zhong</strong></li>
+        <li><a href='/index/getCountryEcon'>Country Economic</a> by <strong>Jake Liu</strong></li>
         <!--enter links to other pages here-->
         <br>
         <hr>
@@ -203,7 +242,7 @@ def team():
         <h3>Group 29</h3>
         <li><a href='/team/harry'>Harry Yu</a></li>
         <li><a href='/team/aaron'>Aaron Tang</a></li>
-        <li>Jake Liu</li>
+        <li><a href='/team/jake'>Jake Liu</a></li>
         <li><a href='/team/denise'>Denise Zhong</a></li>
         <li>Nana Li</li>
         <br>
@@ -256,6 +295,20 @@ def denise():
         <br>
         <hr>
         <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
+        </form>
+    '''
+
+@app.route('/team/jake')
+def jake():
+    print('processing / route')
+    return f''''
+    <h1>Jake Liu</h1>
+    <hr>
+    <text>Wrote <strong>getCountryEcon</strong> function, added to website</text>
+    <br>
+    <hr>
+    <form action='/team'>
             <button style ="background-color: F7433E" type="submit">Back</button>
         </form>
     '''
