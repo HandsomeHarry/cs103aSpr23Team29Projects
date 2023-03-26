@@ -20,7 +20,13 @@ def test_create_table(transaction):
 
 
 def test_add_transaction(transaction):
-    pass
+    '''Harry'''
+    """Test that adding a transaction increases the number of transactions"""
+    num_transactions = len(transaction.get_transactions())
+    transaction.add_transaction(10.0, "Food", "2022-03-25", "Groceries")
+    new_num_transactions = len(transaction.get_transactions())
+    transaction.conn.close()
+    assert new_num_transactions == num_transactions + 1
 
 
 def test_delete_transaction(transaction):
