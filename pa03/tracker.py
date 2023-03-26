@@ -53,12 +53,14 @@ def main():
             transactions = db.get_transactions()
             format_transactions(transactions)
         elif choice == "5":
+            '''Harry'''
             amount = float(input("Enter the transaction amount: "))
             category = input("Enter the transaction category: ")
             date = input("Enter the transaction date (YYYY-MM-DD): ")
             description = input("Enter the transaction description: ")
             db.add_transaction(amount, category, date, description)
         elif choice == "6":
+            '''Harry'''
             item = int(input("Enter the item number to delete: "))
             db.delete_transaction(item)
         elif choice == "7":
@@ -66,18 +68,22 @@ def main():
             transactions = [t for t in db.get_transactions() if t[3] == date]
             format_transactions(transactions)
         elif choice == "8":
+            '''Harry'''
             month = input("Enter the month to summarize (YYYY-MM): ")
             transactions = [t for t in db.get_transactions() if t[3].startswith(month)]
             format_transactions(transactions)
         elif choice == "9":
+            '''Harry'''
             year = input("Enter the year to summarize (YYYY): ")
             transactions = [t for t in db.get_transactions() if t[3].startswith(year)]
             format_transactions(transactions)
         elif choice == "10":
+            '''Harry'''
             category = input("Enter the category to summarize: ")
             transactions = [t for t in db.get_transactions() if t[2] == category]
             format_transactions(transactions)
         elif choice == "11":
+            '''Harry'''
             print_menu()
         else:
             print("Invalid choice. Try again.")
