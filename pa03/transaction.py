@@ -46,7 +46,7 @@ class Transaction:
 
     def delete_transaction(self, item):
         '''Aaron Tang'''
-        self.conn.execute("DELETE FROM transactions WHERE item=?", (item,))
+        self.conn.execute("DELETE FROM transactions WHERE item #=?", (item,))
         self.conn.commit()
 
     def update_transaction(self, item, field, value):
