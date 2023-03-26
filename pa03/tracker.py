@@ -1,22 +1,29 @@
 from transaction import Transaction
 
+
 def print_menu():
-    print("0. quit")
-    print("1. show categories")
-    print("2. add category")
-    print("3. modify category")
-    print("4. show transactions")
-    print("5. add transaction")
-    print("6. delete transaction")
-    print("7. summarize transactions by date")
-    print("8. summarize transactions by month")
-    print("9. summarize transactions by year")
-    print("10. summarize transactions by category")
-    print("11. print this menu")
+    """Aaron Tang"""
+    print('''Options:
+            0. quit
+            1. show categories
+            2. add category
+            3. modify category
+            4. show transactions
+            5. add transaction
+            6. delete transaction
+            7. summarize transactions by date
+            8. summarize transactions by month
+            9. summarize transactions by year
+            10. summarize transactions by category
+            11. print this menu
+            '''
+          )
+
 
 def main():
     db = Transaction("tracker.db")
     print_menu()
+
 
 def format_transactions(transactions):
     # print the transactions in a nice format
@@ -24,6 +31,7 @@ def format_transactions(transactions):
     print("------------------------------------------------------")
     for t in transactions:
         print(f"{t[0]:<6} | {t[1]:<6} | {t[2]:<8} | {t[3]:<10} | {t[4]}")
+
 
 def main():
     db = Transaction("tracker.db")
@@ -70,17 +78,20 @@ def main():
         elif choice == "8":
             '''Harry'''
             month = input("Enter the month to summarize (YYYY-MM): ")
-            transactions = [t for t in db.get_transactions() if t[3].startswith(month)]
+            transactions = [t for t in db.get_transactions()
+                            if t[3].startswith(month)]
             format_transactions(transactions)
         elif choice == "9":
             '''Harry'''
             year = input("Enter the year to summarize (YYYY): ")
-            transactions = [t for t in db.get_transactions() if t[3].startswith(year)]
+            transactions = [t for t in db.get_transactions()
+                            if t[3].startswith(year)]
             format_transactions(transactions)
         elif choice == "10":
             '''Harry'''
             category = input("Enter the category to summarize: ")
-            transactions = [t for t in db.get_transactions() if t[2] == category]
+            transactions = [t for t in db.get_transactions()
+                            if t[2] == category]
             format_transactions(transactions)
         elif choice == "11":
             '''Harry'''
@@ -89,6 +100,7 @@ def main():
             print("Invalid choice. Try again.")
 
     db.close_connection()
+
 
 if __name__ == "__main__":
     main()
