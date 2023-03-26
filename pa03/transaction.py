@@ -20,35 +20,35 @@ def toDict(t):
     transaction = {'rowid':t[0], 'item_#':t[1], 'amount':t[2], 'category':t[3], 'date':t[4], 'description:':t[5]}
     return transaction
 
-class Transaction():
-    def __init__(self):
-        '''Denise'''
-        self.runQuery('''CREATE TABLE IF NOT EXISTS transactions
-                    (item_# int, amount dec, category text, date date, description text)''',())
+class Transaction:
+    def __init__(self, filename):
+        self.filename = filename
+        self.conn = sqlite3.connect(self.filename)
+        self.create_table()
 
-    def selectAll(self):
-        '''Denise'''
-        ''' return all of the transactions as a list of dicts.'''
-        return self.runQuery("SELECT rowid,* from transactions",())
+    def create_table(self):
+        self.conn.execute('''CREATE TABLE IF NOT EXISTS transactions
+                             (item INTEGER PRIMARY KEY,
+                              amount REAL,
+                              category TEXT,
+                              date TEXT,
+                              description TEXT)''')
 
-    def add(self,item):
-        '''Denise'''
-        ''' add a transaction '''
-        return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?)",(item['item_#'],item['amount'],item['category'],item['date'],item['description']))
+    def add_transaction(self, amount, category, date, description):
+        self.conn.execute("INSERT INTO transactions (amount, category, date, description) VALUES (?, ?, ?, ?)",
+                          (amount, category, date, description))
+        self.conn.commit()
 
-    def delete(self,rowid):
-        '''Denise'''
-        ''' delete a transaction '''
-        return self.runQuery("DELETE FROM transaction WHERE rowid=(?)",(rowid,))
+    def delete_transaction(self, item):
+        self.conn.execute("DELETE FROM transactions WHERE item=?", (item,))
+        self.conn.commit()
 
+    def update_transaction(self, item, field, value):
+        self.conn.execute(f"UPDATE transactions SET {field}=? WHERE item=?", (value, item))
+        self.conn.commit()
 
-    def runQuery(self,query,tuple):
-        '''Denise'''
-        ''' return all of the uncompleted tasks as a list of dicts.'''
-        con= sqlite3.connect(os.getenv('HOME')+'/tracker.db')
-        cur = con.cursor() 
-        cur.execute(query,tuple)
-        tuples = cur.fetchall()
-        con.commit()
-        con.close()
-        return [toDict(t) for t in tuples]
+    def get_transactions(self):
+        return self.conn.execute("SELECT * FROM transactions").fetchall()
+
+    def close_connection(self):
+        self.conn.close()
