@@ -25,11 +25,13 @@ def toDict(t):
 
 class Transaction:
     def __init__(self, filename):
+        '''Harry'''
         self.filename = filename
         self.conn = sqlite3.connect(self.filename)
         self.create_table()
 
     def create_table(self):
+        '''Harry'''
         self.conn.execute('''CREATE TABLE IF NOT EXISTS transactions
                              (item INTEGER PRIMARY KEY,
                               amount REAL,
