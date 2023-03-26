@@ -41,6 +41,10 @@ def test_delete_transaction(transaction):
 
 
 def test_update_transaction(transaction):
+    """Zared Cohen"""
     """Test that updating a transaction changes the corresponding field"""
-    pass
-    # implement this method
+
+    transaction.add_transaction(10.0, "Food", "2022-03-25", "Groceries")
+    transaction.update_transaction(1, "Food", 10.0)
+    assert transaction.get_transactions()[0][1] == 10.0
+    transaction.conn.close()
