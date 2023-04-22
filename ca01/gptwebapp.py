@@ -36,11 +36,10 @@ def main():
     print('processing / route')
     return f'''
         <h1>Group 29 GPT demo</h1>
-        <a href="{url_for('index')}">Index page</a>
-        <br>
-        <a href="{url_for('about')}">About</a>
-        <br>
-        <a href="{url_for('team')}">Team</a>
+        <hr>
+        <h3><a href="{url_for('index')}">Index page</a></h3>
+        <h3><a href="{url_for('about')}">About</a></h3>
+        <h3><a href="{url_for('team')}">Team</a></h3>
     '''
 
 # index page for all the functions
@@ -51,11 +50,16 @@ def index():
     print('processing / route')
     return f'''
         <h1>Group 29 GPT demo</h1>
-        <a href="{url_for('fieldAnalysis')}">Analyse field</a>
-        <br>
-        <a href="{url_for('convertCode')}">Convert code</a>
-        <br>
+        <hr>
+        <h3><a href="{url_for('fieldAnalysis')}">Analyse field</a></h3>
+        <h3><a href="{url_for('convertCode')}">Convert code</a></h3>
+        <h3><a href="{url_for('getTownPopulation')}">Town Population</a></h3>
+        <h3><a href="{url_for('getCountryEcon')}">Country Economic</a></h3>
         <!--enter link to other pages here-->
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
     '''
 
 ### here starts the index page elements ###
@@ -67,22 +71,33 @@ def convertCode():
     '''
     if request.method == 'POST':
         prompt = request.form['prompt']
-        answer = gptAPI.getResponse(prompt)
+        answer = gptAPI.convertCodetoPython(prompt)
         return f'''
-        <h1>Convert Code to Python</h1>
+        <h1>Convert the given code into Python</h1>
+        <hr>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
-        Here is the answer in "pre" mode:
-        <pre style="border:thin solid black">{answer}</pre>
-        <a href='/index/convertCode'> make another query</a>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
+        <form action='/index/convertCode'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
         '''
     else:
         return '''
-        <h1>Convert the code into Python</h1>
+        <h1>Convert the code to python</h1>
+        <hr>
         Enter the code you want to convert:
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
         </form>
         '''
 
@@ -96,21 +111,105 @@ def fieldAnalysis():
         answer = gptAPI.fieldAnalysis(prompt)
         return f'''
         <h1>Field analysis output</h1>
+        <hr>
         <pre style="bgcolor:yellow">{prompt}</pre>
         <hr>
         <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
-        <a href='/index/fieldAnalysis'> make another query</a>
-        <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/index/fieldAnalysis'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
         '''
     else:
         return '''
         <h1>Generate analysis of specific field</h1>
+        <hr>
         Enter the industry you want to analyze:
         <form method="post">
             <textarea name="prompt"></textarea>
             <p><input type=submit value="get response">
         </form>
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
+    
+@app.route('/index/getTownPopulation', methods=['GET', 'POST'])
+def getTownPopulation():
+    ''' handle a get request by sending a form 
+        and a post request by returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.getTownPopulation(prompt)
+        return f'''
+        <h1>Get the Population of a Given Town</h1>
+        <hr>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
+        <form action='/index/getTownPopulation'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
+    else:
+        return '''
+        <h1>Give the Town Population </h1>
+        <hr>
+        Enter the town, state, and country you want the population of:
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
+
+@app.route('/index/getCountryEcon', methods=['GET','POST'])
+def getCountryEcon():
+    '''handle a get request by sending a form
+       and a post requestby returning the GPT response
+    '''
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        answer = gptAPI.getCountryEcon(prompt)
+        return f'''
+        <h1>Get the economic information of a country</h1>
+        <hr>
+        <pre style="bgcolor:yellow">{prompt}</pre>
+        <hr>
+        <pre style="border:thin solid black; white-space: pre-wrap;">{answer}</pre>
+        <hr>
+        <form action='/index/getCountryEcon'>
+            <button style ="background-color: F7433E" type="submit">Make another query</button>
+        </form>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
+        '''
+    else:
+        return '''
+        <h1>List the economic information of a country</h1>
+        <hr>
+        Enter the name of the country you want to know about:
+        <form method="post">
+            <textarea name="prompt"></textarea>
+            <p><input type=submit value="get response">
+        </form>
+        <hr>
+        <form action='/'>
+            <button style = "background-color: 33B2FF" type="submit">Home</button>
+        </form)
         '''
 
 ### here starts the main page elements ###
@@ -120,12 +219,18 @@ def about():
     print('processing / route')
     return f'''
         <h1>About</h1>
+        <hr>
         <p>This is a GPT demo made by group 29, containing:</p>
-        <li><a href='/index/convertCode'>Convert code to Python</a> by Aaron Tang</li>
-        <li><a href='/index/fieldAnalysis'>Field analysis</a> by Harry Yu</li>
+        <li><a href='/index/convertCode'>Convert code to Python</a> by <strong>Aaron Tang</strong></li>
+        <li><a href='/index/fieldAnalysis'>Field analysis</a> by <strong>Harry Yu</strong></li>
+        <li><a href='/index/getTownPopulation'>Give the Town Population</a> by <strong>Denise Zhong</strong></li>
+        <li><a href='/index/getCountryEcon'>Country Economic</a> by <strong>Jake Liu</strong></li>
         <!--enter links to other pages here-->
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
     '''
 
 @app.route('/team')
@@ -133,14 +238,18 @@ def team():
     print('processing / route')
     return f'''
         <h1>Team</h1>
-        <p>Group 29</p>
+        <hr>
+        <h3>Group 29</h3>
         <li><a href='/team/harry'>Harry Yu</a></li>
-        <li>Aaron Tang: Wrote <strong>convertCodetoPython</strong> function, built website framework</li>
-        <li>Jake Liu</li>
-        <li>Denise Zhong</li>
+        <li><a href='/team/aaron'>Aaron Tang</a></li>
+        <li><a href='/team/jake'>Jake Liu</a></li>
+        <li><a href='/team/denise'>Denise Zhong</a></li>
         <li>Nana Li</li>
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/'>
+            <button style ="background-color: 33B2FF" type="submit">Home</button>
+        </form>
     '''
 
 ### here starts the team page elements ###
@@ -150,10 +259,13 @@ def harry():
     print('processing / route')
     return f'''
         <h1>Harry Yu</h1>
+        <hr>
         <text>Team leader, wrote <strong>fieldAnalysis</strong> function, built website framework</text>
         <br>
-        <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
+        </form>
     '''
 
 @app.route('/team/aaron')
@@ -161,9 +273,44 @@ def aaron():
     print('processing / route')
     return f'''
         <h1>Aaron Tang</h1>
+        <hr>
         <text>Wrote <strong>convertCodetoPython</strong> function, built website framework</text>
         <br>
-        <a href="/">Main page</a>
+        <hr>
+        <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
+        </form>
+    '''
+
+@app.route('/team/denise')
+def denise():
+    print('processing / route')
+    return f'''
+        <h1>Denise Zhong</h1>
+        <hr>
+        <h2>Brandeis Class of 2023</h2>
+        <h3>Bachelor of Science Candidate in Biology</h3>
+        <h3>Minor in Chemistry and Computer Science</h3>
+        <text>Wrote <strong>getTownPopulation</strong> function, added to website</text>
+        <br>
+        <hr>
+        <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
+        </form>
+    '''
+
+@app.route('/team/jake')
+def jake():
+    print('processing / route')
+    return f''''
+    <h1>Jake Liu</h1>
+    <hr>
+    <text>Wrote <strong>getCountryEcon</strong> function, added to website</text>
+    <br>
+    <hr>
+    <form action='/team'>
+            <button style ="background-color: F7433E" type="submit">Back</button>
+        </form>
     '''
 
 # run the app
