@@ -1,4 +1,4 @@
-
+<!-- Zared Cohen -->
 <h1>Transactions for <%= user.username %> </h1>
 <p>Here is your list of things to do!</p>
   
@@ -11,8 +11,17 @@
     </div>
   
       <div class="row">
-          <div class="col bg-info">
+          <div class="col bg-info"> implement transaction rows here
           </div>    
           <div class="col bg-primary">
           </div>
       </div>
+
+<h1>Add a new Transaction</h1>
+    <form method="post" action="todo">
+    <input type="text" name="item" placeholder="description"><br>
+    <input type="text" name="item" placeholder="category"><br>
+    <input type="text" name="item" placeholder="amount"><br>
+    <input type="text" name="item" placeholder="mm/dd/yyyy"><br>
+    <input type="submit" value="store">
+    </form>
