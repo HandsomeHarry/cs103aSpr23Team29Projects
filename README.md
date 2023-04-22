@@ -12,6 +12,6 @@ Team TwentyNine!
 * Aaron Tang aarontang0904
 * Jake Liu JakeLiu-web
 * Denise Zhong
-* Nana Li
+* Zared Cohen
 
 
