@@ -106,13 +106,6 @@ app.get('/about',
   }
 )
 
-app.get('/transactions', 
-  isLoggedIn,
-  (req,res,next) => {
-    res.render('transactions');
-  }
-)
-
 app.use(toDoRouter);
 app.use(transactionsRouter);
 
