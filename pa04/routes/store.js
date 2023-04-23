@@ -24,7 +24,7 @@ router.post('/transactions',
         description: req.body.description,
         category: req.body.category,
         amount: req.body.amount,
-        date: new Date(req.body.date).toDateString()
+        date: new Date(req.body.date)
       })
     await transaction.save();
     res.redirect('/transactions'); // Redirect to the transactions page

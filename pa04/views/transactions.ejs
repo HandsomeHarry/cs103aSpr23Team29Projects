@@ -4,7 +4,7 @@
 <p>Here is your list of things to do!</p>
 
 <div class="row">
-    <button class="bg-primary"
+    <button class="bg-primary"`
         style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
         onclick="location.href='transactions/byCategory'">group by category</button>
     <button class="bg-primary"
@@ -39,7 +39,7 @@
           <td><%= transaction.description %></td>
           <td>$ <%= transaction.amount.toFixed(2) %></td>
           <td><%= transaction.category %></td>
-          <td><%= transaction.date %></td>
+          <td><%= transaction.date.toDateString() %></td>
           <td><button class="btn btn-danger" onclick="location.href='/transactions/delete/<%= transaction._id %>'">Delete</button></td>
           <td><button class="btn btn-primary" onclick="location.href='/transactions/edit/<%= transaction._id %>'">Edit</button></td>
         </tr>
@@ -47,47 +47,6 @@
     </tbody>
   </table>
 </div>
-
-<div class="row">
-    <div class="col">
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% transactions.forEach(transaction=> { %>
-                    <tr>
-                        <td>
-                            <%= transaction.description %>
-                        </td>
-                        <td>
-                            <%= transaction.amount %>
-                        </td>
-                        <td>
-                            <%= transaction.category %>
-                        </td>
-                        <td>
-                            <%= transaction.date %>
-                        </td>
-                        <td><button
-                                onclick="location.href='/transactions/delete/<%= transaction._id %>'">Delete</button>
-                        </td>
-                        <td><button onclick="location.href='/transactions/edit/<%= transaction._id %>'">Edit</button>
-                        </td>
-                    </tr>
-                    <% }); %>
-            </tbody>
-        </table>
-    </div>
-</div>
-
 
 <h1>Add a new Transaction</h1>
 <form method="post" action="transactions">
