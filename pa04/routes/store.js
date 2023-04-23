@@ -10,9 +10,7 @@ const Transaction = require('../models/Transaction');
 router.get('/transactions/',
   isLoggedIn,
   async (req, res, next) => {
-    const transactions = await Transaction.find({ userId: req.user._id });
-    console.log('Fetched transactions:', transactions); // Log the fetched transactions
-    res.locals.transactions = transactions;
+    res.locals.transactions = await Transaction.find({ userId: req.user._id })
     res.render('transactions');
   });
 
@@ -27,10 +25,9 @@ router.post('/transactions',
         category: req.body.category,
         amount: req.body.amount,
         date: new Date(req.body.date).toDateString()
-      });
-    const savedTransaction = await transaction.save();
-    console.log('Saved transaction:', savedTransaction); // Log the saved transaction
-    res.redirect('/transactions');
+      })
+    await transaction.save();
+    res.redirect('/transactions'); // Redirect to the transactions page
   });
 
 
