@@ -9,38 +9,32 @@
   <button class="bg-primary" style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;" onclick="location.href='transactions?sortBy=description'">sort by description</button>
   <button class="bg-primary" style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;" onclick="location.href='transactions?sortBy=date'">sort by date</button>     
 </div>
-  
-<div class="row">
-  <div class="col">
-    <table>
-      <thead>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Delete</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% transactions.forEach(function(transaction) { %>
         <tr>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th></th>
-          <th></th>
-          <br>
+          <td><%= transaction.description %></td>
+          <td>$ <%= transaction.amount.toFixed(2) %></td>
+          <td><%= transaction.category %></td>
+          <td><%= transaction.date %></td>
+          <td><button class="btn btn-danger" onclick="location.href='/transactions/delete/<%= transaction._id %>'">Delete</button></td>
+          <td><button class="btn btn-primary" onclick="location.href='/transactions/edit/<%= transaction._id %>'">Edit</button></td>
         </tr>
-      </thead>
-      <tbody>
-        <% transactions.forEach(transaction => { %>
-          <tr>
-            <td><%= transaction.description %></td>
-            <td><%= transaction.amount %></td>
-            <td><%= transaction.category %></td>
-            <td><%= transaction.date %></td>
-            <td><button onclick="location.href='/transactions/delete/<%= transaction._id %>'">Delete</button></td>
-            <td><button onclick="location.href='/transactions/edit/<%= transaction._id %>'">Edit</button></td>
-            <br>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-  </div>    
-  <div class="col bg-primary">
-  </div>
+      <% }); %>
+    </tbody>
+  </table>
 </div>
 
 <h1>Add a new Transaction</h1>
