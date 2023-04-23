@@ -104,6 +104,13 @@ app.get('/about',
   }
 )
 
+app.get('/transactions', 
+  isLoggedIn,
+  (req,res,next) => {
+    res.render('transactions');
+  }
+)
+
 app.use(toDoRouter);
 
 // catch 404 and forward to error handler
