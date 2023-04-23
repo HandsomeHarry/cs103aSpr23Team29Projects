@@ -18,6 +18,7 @@ router.get('/transactions/',
   isLoggedIn,
   async (req, res, next) => {
     res.locals.transactions = await Transaction.find({ userId: req.user._id })
+    console.log("Transactions:", res.locals.transactions)
     res.render('transactions');
   });
 
@@ -30,7 +31,8 @@ router.post('/transactions',
         description: req.body.description,
         category: req.body.category,
         amount: req.body.amount,
-        date: new Date(req.body.date).toDateString()
+        date: new Date(req.body.date).toDateString(),
+        userId: req.user._id
       })
     await transaction.save();
     res.redirect('/transactions'); // Redirect to the transactions page
