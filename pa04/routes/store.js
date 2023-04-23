@@ -13,16 +13,8 @@ store using an object where the keys and values are lists of strings
 
 */
 
-isLoggedIn = (req, res, next) => {
-  if (res.locals.loggedIn) {
-    next()
-  } else {
-    res.redirect('/login')
-  }
-}
-
 // get the value associated to the key
-router.get('/transactions',
+router.get('/transactions/',
   isLoggedIn,
   async (req, res, next) => {
     res.locals.transactions = await Transaction.find({ userId: req.user._id })
@@ -38,10 +30,9 @@ router.post('/transactions',
         description: req.body.description,
         category: req.body.category,
         amount: req.body.amount,
-        date: new Date(req.body.date)
+        date: new Date(req.body.date).toDateString()
       })
     await transaction.save();
-
     res.redirect('/transactions'); // Redirect to the transactions page
   });
 
