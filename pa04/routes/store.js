@@ -13,7 +13,7 @@ router.get('/transactions/',
     res.locals.transactions = await Transaction.find({ userId: req.user._id })
     res.render('transactions');
   });
-  
+
 //Post 
 //Zared Cohen
 router.post('/transactions',
@@ -40,14 +40,16 @@ router.get('/transactions/delete/:itemId',
     res.redirect('/transactions')
   });
 
-
-// Sort transactions by date
-// Aaron Tang
-router.get('/transactions/sortBy=date',
+//Edit item
+//Aaron Tang
+router.get('/transactions/edit/:itemId',
   isLoggedIn,
   async (req, res, next) => {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ date: 1 })
-    res.render('transactions');
+    console.log("inside /transactions/edit/:itemId")
+    const item =
+      await ToDoItem.findById({ _id: req.params.itemId });
+    res.locals.item = item
+    res.render('edit')
   });
 
 // Sort transactions by amount
@@ -60,7 +62,7 @@ router.get('/transactions/sortBy=amount',
   });
 
 // Sort transactions by category
-// Aaron Tang
+//Aaron Tang
 router.get('/transactions/sortBy=category',
   isLoggedIn,
   async (req, res, next) => {
@@ -68,15 +70,24 @@ router.get('/transactions/sortBy=category',
     res.render('transactions');
   });
 
-
 // Sort transactions by description
-// Aaron Tang
+//Aaron Tang
 router.get('/transactions/sortBy=description',
   isLoggedIn,
   async (req, res, next) => {
     res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ description: 1 });
     res.render('transactions');
   });
+
+// Sort transactions by date
+//Aaron Tang
+router.get('/transactions/sortBy=date',
+  isLoggedIn,
+  async (req, res, next) => {
+    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ date: 1 });
+    res.render('transactions');
+  });
+
 
 module.exports = router;
 
