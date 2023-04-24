@@ -6,14 +6,6 @@ const bodyParser = require('body-parser'); //for reading values
 const router = express.Router();
 const Transaction = require('../models/Transaction');
 
-//Zared Cohen
-router.get('/transactions/',
-  isLoggedIn,
-  async (req, res, next) => {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id })
-    res.render('transactions');
-  });
-
 //Post 
 //Zared Cohen
 router.post('/transactions',
@@ -52,42 +44,44 @@ router.get('/transactions/edit/:itemId',
     res.render('edit')
   });
 
-// Sort transactions by amount
-// Aaron Tang
-router.get('/transactions/sortBy=amount',
-  isLoggedIn,
+// Sort transactions
+// Harry Yu
+router.get('/transactions', 
+  isLoggedIn, 
   async (req, res, next) => {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ amount: 1 });
-    res.render('transactions');
-  });
+  const sortBy = req.query.sortBy;
+  console.log(sortBy);
 
-// Sort transactions by category
-//Aaron Tang
-router.get('/transactions/sortBy=category',
-  isLoggedIn,
-  async (req, res, next) => {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ category: 1 });
-    res.render('transactions');
-  });
+  if (sortBy === 'description') {
+    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ description: 'asc' });
+  } else if (sortBy === 'amount') {
+    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ amount: 'asc' });
+  } else if (sortBy === 'category') {
+    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ category: 'asc' });
+  } else if (sortBy === 'date') {
+    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ date: 'asc' });
+  } else {
+    res.locals.transactions = await Transaction.find({ userId: req.user._id });
+  }
+  res.render('transactions');
+});
 
-// Sort transactions by description
-//Aaron Tang
-router.get('/transactions/sortBy=description',
-  isLoggedIn,
-  async (req, res, next) => {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ description: 1 });
-    res.render('transactions');
+// Group transactions by category
+// Harry Yu
+router.get('/transactions/byCategory', 
+isLoggedIn,
+async (req, res) => {
+  const userId = req.user._id;
+  const transactions = await Transaction.find({ userId });
+  const groupedTransactions = {};
+  transactions.forEach(function(transaction) {
+    if (!groupedTransactions[transaction.category]) {
+      groupedTransactions[transaction.category] = 0;
+    }
+    groupedTransactions[transaction.category] += parseFloat(transaction.amount);
   });
-
-// Sort transactions by date
-//Aaron Tang
-router.get('/transactions/sortBy=date',
-  isLoggedIn,
-  async (req, res, next) => {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ date: 1 });
-    res.render('transactions');
+  const categories = Object.keys(groupedTransactions);
+  res.render('byCategory', { categories, groupedTransactions });
   });
-
 
 module.exports = router;
-
