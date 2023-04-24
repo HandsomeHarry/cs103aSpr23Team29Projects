@@ -39,49 +39,49 @@ router.get('/transactions/edit/:itemId',
   async (req, res, next) => {
     console.log("inside /transactions/edit/:itemId")
     const item =
-      await ToDoItem.findById({ _id: req.params.itemId });
+      await Transaction.findById({ _id: req.params.itemId });
     res.locals.item = item
     res.render('edit')
   });
 
 // Sort transactions
 // Harry Yu
-router.get('/transactions', 
-  isLoggedIn, 
+router.get('/transactions',
+  isLoggedIn,
   async (req, res, next) => {
-  const sortBy = req.query.sortBy;
-  console.log(sortBy);
+    const sortBy = req.query.sortBy;
+    console.log(sortBy);
 
-  if (sortBy === 'description') {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ description: 'asc' });
-  } else if (sortBy === 'amount') {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ amount: 'asc' });
-  } else if (sortBy === 'category') {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ category: 'asc' });
-  } else if (sortBy === 'date') {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ date: 'asc' });
-  } else {
-    res.locals.transactions = await Transaction.find({ userId: req.user._id });
-  }
-  res.render('transactions');
-});
+    if (sortBy === 'description') {
+      res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ description: 'asc' });
+    } else if (sortBy === 'amount') {
+      res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ amount: 'asc' });
+    } else if (sortBy === 'category') {
+      res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ category: 'asc' });
+    } else if (sortBy === 'date') {
+      res.locals.transactions = await Transaction.find({ userId: req.user._id }).sort({ date: 'asc' });
+    } else {
+      res.locals.transactions = await Transaction.find({ userId: req.user._id });
+    }
+    res.render('transactions');
+  });
 
 // Group transactions by category
 // Harry Yu
-router.get('/transactions/byCategory', 
-isLoggedIn,
-async (req, res) => {
-  const userId = req.user._id;
-  const transactions = await Transaction.find({ userId });
-  const groupedTransactions = {};
-  transactions.forEach(function(transaction) {
-    if (!groupedTransactions[transaction.category]) {
-      groupedTransactions[transaction.category] = 0;
-    }
-    groupedTransactions[transaction.category] += parseFloat(transaction.amount);
-  });
-  const categories = Object.keys(groupedTransactions);
-  res.render('byCategory', { categories, groupedTransactions });
+router.get('/transactions/byCategory',
+  isLoggedIn,
+  async (req, res) => {
+    const userId = req.user._id;
+    const transactions = await Transaction.find({ userId });
+    const groupedTransactions = {};
+    transactions.forEach(function (transaction) {
+      if (!groupedTransactions[transaction.category]) {
+        groupedTransactions[transaction.category] = 0;
+      }
+      groupedTransactions[transaction.category] += parseFloat(transaction.amount);
+    });
+    const categories = Object.keys(groupedTransactions);
+    res.render('byCategory', { categories, groupedTransactions });
   });
 
 module.exports = router;
