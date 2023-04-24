@@ -44,6 +44,19 @@ router.get('/transactions/edit/:itemId',
     res.render('edit')
   });
 
+//Update item
+//Aaron Tang
+router.post('/transactions/updateTransaction',
+  isLoggedIn,
+  async (req, res, next) => {
+    const { itemId, description, category, amount, date } = req.body;
+    console.log("inside /transaction/edit/:itemId");
+    await Transaction.findOneAndUpdate(
+      { _id: itemId },
+      { $set: { description, category, amount, date } });
+    res.redirect('/transactions')
+  });
+
 // Sort transactions
 // Harry Yu
 router.get('/transactions',
