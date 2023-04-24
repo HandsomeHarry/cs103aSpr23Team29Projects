@@ -1,20 +1,21 @@
 /*
-  store.js -- Router for the Transactions - Zared COhen
+  store.js -- Router for the Transactions
 */
 const express = require('express');
 const bodyParser = require('body-parser'); //for reading values
 const router = express.Router();
 const Transaction = require('../models/Transaction');
 
-// get the value associated with the key
+//Zared Cohen
 router.get('/transactions/',
   isLoggedIn,
   async (req, res, next) => {
     res.locals.transactions = await Transaction.find({ userId: req.user._id })
     res.render('transactions');
   });
-
-/* add the value in the body to the list associated with the key */
+  
+//Post 
+//Zared Cohen
 router.post('/transactions',
   isLoggedIn,
   async (req, res, next) => {
@@ -30,14 +31,15 @@ router.post('/transactions',
     res.redirect('/transactions'); // Redirect to the transactions page
   });
 
-
+//Delete item
+//Zared Cohen
 router.get('/transactions/delete/:itemId',
   isLoggedIn,
   async (req, res, next) => {
-    console.log("inside /transactions/remove/:itemId")
     await Transaction.deleteOne({ _id: req.params.itemId });
     res.redirect('/transactions')
   });
+
 
 // Sort transactions by date
 // Aaron Tang

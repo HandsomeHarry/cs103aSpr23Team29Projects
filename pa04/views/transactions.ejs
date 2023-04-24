@@ -37,7 +37,7 @@
       <% transactions.forEach(function(transaction) { %>
         <tr>
           <td><%= transaction.description %></td>
-          <td>$ <%= transaction.amount.toFixed(2) %></td>
+          <td><%= transaction.amount %></td>
           <td><%= transaction.category %></td>
           <td><%= transaction.date.toDateString() %></td>
           <td><button class="btn btn-danger" onclick="location.href='/transactions/delete/<%= transaction._id %>'">Delete</button></td>
