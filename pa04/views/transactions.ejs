@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <!-- Zared Cohen -->
 <h1>Transactions for <%= user.username %>
 </h1>
@@ -48,10 +49,14 @@
                     <td>
                         <%= transaction.date.toDateString() %>
                     </td>
-                    <td><button class="btn btn-danger"
-                            onclick="location.href='/transactions/delete/<%= transaction._id %>'">Delete</button></td>
-                    <td><button class="btn btn-primary"
-                            onclick="location.href='/transactions/edit/<%= transaction._id %>'">Edit</button></td>
+                    <td><a href='/transactions/delete/<%= transaction._id %>'>
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                    <td><a href='/transactions/edit/<%= transaction._id %>'>
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
                 </tr>
                 <% }); %>
         </tbody>
