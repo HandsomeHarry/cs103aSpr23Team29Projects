@@ -1,12 +1,10 @@
 <!-- Zared Cohen -->
-<form method="post" action="transactions">
-  <%= prompt %><input type="text" name="input" placeholder=""><br>
-    <input type="submit" value="gpt">
+<form method="post" action="gpt">
+    <%= prompt %><input type="text" name="input" placeholder=""><br>
+    <input type="hidden" name="prompt" value='<%= prompt %>'>
+    <input type="submit" value="submit">
 </form>
 
 <% if (typeof response !== 'undefined') { %>
   <p><%= prompt %> <%= input %> : <%= response %></p>
-<% } else { %>
-  <!-- response does not exist -->
-  <p>NooOOOOO</p>
 <% } %>

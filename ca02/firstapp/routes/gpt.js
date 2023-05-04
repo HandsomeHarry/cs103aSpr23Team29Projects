@@ -5,11 +5,12 @@ const express = require('express');
 const router = express.Router();
 const ToDoItem = require('../models/ToDoItem')
 const User = require('../models/User')
+const axios = require('axios');
 
 const harryPrompt= ''
 const harryGPTPrompt = ''
 
-const zaredPrompt = 'Enter something to translate to Python:'
+const zaredPrompt = 'Enter something to translate to Python: '
 const zaredGPTPrompt = 'Translate this to Python: \n'
 
 
@@ -21,10 +22,8 @@ isLoggedIn = (req,res,next) => {
     }
   }
 
-const axios = require('axios');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
-dotenv.config();
 const apiKey = process.env.APIKEY;
 
 class GPT {
@@ -63,7 +62,7 @@ router.get('/gpt',
   async (req, res, next) => {
     const prompt = req.query.prompt;
     if (prompt == "zared") {
-        res.render('gpt', { prompt: zaredGPTPrompt })
+        res.render('gpt', { prompt: zaredPrompt })
     } else if (prompt == "harry") {
         res.render('gpt', { prompt: harryGPTPrompt })
     } else {
@@ -75,11 +74,12 @@ router.get('/gpt',
 router.post('/gpt',
   isLoggedIn,
   async (req, res, next) => {
-    const prompt = req.query.prompt;
+    const prompt = req.body.prompt;
     const input = req.body.input;
-    if (prompt == "zared") {
+    console.log(prompt + " " + input)
+    if (prompt == zaredPrompt) {
         const response = await gpt.getResponse(zaredGPTPrompt + input);
-    } else if (prompt == "harry") {
+    } else if (prompt == harryPrompt) {
         const response = await gpt.getResponse(harryGPTPrompt + input);
     } else {
 
