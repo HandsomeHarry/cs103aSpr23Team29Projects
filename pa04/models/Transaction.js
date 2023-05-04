@@ -8,7 +8,7 @@ var transaction = Schema( {
   description:String,
   amount: Number,
   category: String,
-  date: String,
+  date: Date,
   userId: ObjectId
   } );
 
