@@ -1,0 +1,23 @@
+<!-- Harry Yu -->
+<h1>Transactions for <%= user.username %></h1>
+<p>Here is your list of transactions grouped by category</p>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Total Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(function(category) { %>
+        <tr>
+          <td><%= category %></td>
+          <td><%= groupedTransactions[category] %></td>
+        </tr>  
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+

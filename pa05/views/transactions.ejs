@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<!-- Zared Cohen -->
+<h1>Transactions for <%= user.username %>
+</h1>
+<p>Here is your list of things to do!</p>
+
+<div class="row">
+    <button class="bg-primary" `
+        style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+        onclick="location.href='transactions/byCategory'">group by category</button>
+    <button class="bg-primary"
+        style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+        onclick="location.href='transactions/summary?summaryType=date'">summarize transactions by date</button>
+    <button class="bg-primary"
+        style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+        onclick="location.href='transactions/summary?summaryType=month'">summarize transactions by month</button>
+    <button class="bg-primary"
+        style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+        onclick="location.href='transactions/summary?summaryType=year'">summarize transactions by year</button>
+    <button class="bg-primary"
+        style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+        onclick="location.href='transactions/summary?summaryType=category'">summarize transactions by category</button>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% transactions.forEach(function(transaction) { %>
+                <tr>
+                    <td>
+                        <%= transaction.description %>
+                    </td>
+                    <td>
+                        <%= transaction.amount %>
+                    </td>
+                    <td>
+                        <%= transaction.category %>
+                    </td>
+                    <td>
+                        <%= transaction.date.toDateString() %>
+                    </td>
+                    <td><a href='/transactions/delete/<%= transaction._id %>'>
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                    <td><a href='/transactions/edit/<%= transaction._id %>'>
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<h1>Add a new Transaction</h1>
+<form method="post" action="transactions">
+    <input type="text" name="description" placeholder="description"><br>
+    <input type="text" name="category" placeholder="category"><br>
+    <input type="text" name="amount" placeholder="amount"><br>
+    <input type="text" name="date" placeholder="mm/dd/yyyy"><br>
+    <input type="submit" value="store">
+</form>

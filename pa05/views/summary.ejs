@@ -1,0 +1,39 @@
+<h1>Transactions Summary</h1>
+<p>Here is your summary of transactions</p>
+<!-- Harry Yu -->
+<div class="row">
+  <button class="bg-primary" `
+      style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+      onclick="location.href='byCategory'">group by category</button>
+  <button class="bg-primary"
+      style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+      onclick="location.href='summary?summaryType=date'">summarize transactions by date</button>
+  <button class="bg-primary"
+      style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+      onclick="location.href='summary?summaryType=month'">summarize transactions by month</button>
+  <button class="bg-primary"
+      style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+      onclick="location.href='summary?summaryType=year'">summarize transactions by year</button>
+  <button class="bg-primary"
+      style="color: white;width: fit-content; height: 40px; margin-right: 3%; border-radius: 5px;"
+      onclick="location.href='summary?summaryType=category'">summarize transactions by category</button>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Total Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Object.entries(summary).forEach(([type, totalAmount]) => { %>
+        <tr>
+          <td><%= type %></td>
+          <td><%= totalAmount %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
