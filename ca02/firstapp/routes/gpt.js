@@ -8,13 +8,14 @@ const User = require("../models/User");
 const axios = require("axios");
 
 const harryPrompt = "Enter a field that you would like to analyze: ";
-const harryGPTPrompt = "Analyze the following field for me, include various points of view, future prospect and profitability: \n";
+const harryGPTPrompt =
+  "Analyze the following field for me, include various points of view, future prospect and profitability: \n";
 
 const zaredPrompt = "Enter something to translate to Python: ";
 const zaredGPTPrompt = "Translate this to Python: \n";
 
-const aaronPrompt = "Enter a city to find the weather: ";
-const aaronGPTPrompt = "Check the weather for this city: \n";
+const aaronPrompt = "Enter a topic that you want to learn about its history: ";
+const aaronGPTPrompt = "Introduce the history of this: \n";
 
 isLoggedIn = (req, res, next) => {
   if (res.locals.loggedIn) {
@@ -35,8 +36,10 @@ class GPT {
   }
 
   async getResponse(prompt) {
-    const response = await axios.post('http://gracehopper.cs-i.brandeis.edu:3500/openai', 
-    {prompt: prompt});
+    const response = await axios.post(
+      "http://gracehopper.cs-i.brandeis.edu:3500/openai",
+      { prompt: prompt }
+    );
 
     return response.data.choices[0].message.content;
   }
