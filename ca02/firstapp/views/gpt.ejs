@@ -5,6 +5,7 @@
     <input type="submit" value="submit">
 </form>
 
-<% if (typeof response !== 'undefined') { %>
-  <p><%= prompt %> <%= input %> : <%= response %></p>
+<br>
+<% if (typeof response !== 'undefined' && typeof input !== 'undefined') { %>
+  <p><%= prompt %> <%= input %><br><br><br><%= response %></p>
 <% } %>
