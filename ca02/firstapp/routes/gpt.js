@@ -38,7 +38,6 @@ class GPT {
     const response = await axios.post('http://gracehopper.cs-i.brandeis.edu:3500/openai', 
     {prompt: prompt});
 
-    console.log(response.data.choices[0].message.content);
     return response.data.choices[0].message.content;
   }
 }
@@ -50,7 +49,7 @@ router.get("/gpt", isLoggedIn, async (req, res, next) => {
   if (prompt == "zared") {
     res.render("gpt", { prompt: zaredPrompt });
   } else if (prompt == "harry") {
-    res.render("gpt", { prompt: harryGPTPrompt });
+    res.render("gpt", { prompt: harryPrompt });
   } else if (prompt == "aaron") {
     res.render("gpt", { prompt: aaronPrompt });
   } else {
@@ -71,7 +70,6 @@ router.post("/gpt", isLoggedIn, async (req, res, next) => {
     response = await gpt.getResponse(aaronGPTPrompt + input);
   } else {
   }
-  console.log(response)
   res.render("gpt", { prompt, input, response });
 });
 
