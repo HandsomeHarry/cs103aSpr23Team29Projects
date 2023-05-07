@@ -17,6 +17,9 @@ const zaredGPTPrompt = "Translate this to Python: \n";
 const aaronPrompt = "Enter a topic that you want to learn about its history: ";
 const aaronGPTPrompt = "Introduce the history of this: \n";
 
+const denisePrompt = "Enter the city you would like to visit:";
+const deniseGPTPrompt = "Find tourist destinations in this city: \n";
+
 isLoggedIn = (req, res, next) => {
   if (res.locals.loggedIn) {
     next();
@@ -55,7 +58,9 @@ router.get("/gpt", isLoggedIn, async (req, res, next) => {
     res.render("gpt", { prompt: harryPrompt });
   } else if (prompt == "aaron") {
     res.render("gpt", { prompt: aaronPrompt });
-  } else {
+  } else if (prompt == "denise") {
+    res.render("gpt", { prompt: denisePrompt });
+  }else {
   }
   res.render("gpt", { prompt });
 });
@@ -71,6 +76,8 @@ router.post("/gpt", isLoggedIn, async (req, res, next) => {
     response = await gpt.getResponse(harryGPTPrompt + input);
   } else if (prompt == aaronPrompt) {
     response = await gpt.getResponse(aaronGPTPrompt + input);
+  } else if (prompt == denisePrompt) {
+    response = await gpt.getResponse(deniseGPTPrompt + input);
   } else {
   }
   res.render("gpt", { prompt, input, response });
