@@ -20,6 +20,9 @@ const aaronGPTPrompt = "Introduce the history of this: \n";
 const denisePrompt = "Enter the city you would like to visit:";
 const deniseGPTPrompt = "Find tourist destinations in this city: \n";
 
+const jakePrompt = "Enter the country you want to know about economically:  "
+const jakeGPTPrompt = "List out GDP, GSP, Employment rate and labor force participation rate, per capita income, consumer spending and business climate ranking of the country: \n";
+
 isLoggedIn = (req, res, next) => {
   if (res.locals.loggedIn) {
     next();
@@ -60,6 +63,8 @@ router.get("/gpt", isLoggedIn, async (req, res, next) => {
     res.render("gpt", { prompt: aaronPrompt });
   } else if (prompt == "denise") {
     res.render("gpt", { prompt: denisePrompt });
+  } else if (prompt == "jake") {
+    res.render("gpt", { prompt: jakePrompt });
   }else {
   }
   res.render("gpt", { prompt });
@@ -78,6 +83,8 @@ router.post("/gpt", isLoggedIn, async (req, res, next) => {
     response = await gpt.getResponse(aaronGPTPrompt + input);
   } else if (prompt == denisePrompt) {
     response = await gpt.getResponse(deniseGPTPrompt + input);
+  } else if (prompt == jakePrompt) {
+    response = await gpt.getResponse(jakeGPTPrompt + input);
   } else {
   }
   res.render("gpt", { prompt, input, response });
